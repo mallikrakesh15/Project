@@ -2,8 +2,11 @@ from django.shortcuts import render,redirect
 from .models import EmployeeRegister
 from django.contrib import messages
 
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView,UpdateAPIView,ListAPIView
 from .serializer import CalenderSerializer,CalenderModel
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAdminUser
+
 
 # Create your views here.
 def index(request):
@@ -24,3 +27,18 @@ def loginCheck(request):
 class UserAppointment(ListCreateAPIView):
     queryset = CalenderModel.objects.all()
     serializer_class = CalenderSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
+
+class UpdateAppointment(UpdateAPIView):
+    queryset = CalenderModel.objects.all()
+    serializer_class = CalenderSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
+
+
+class ViewAppointment(ListAPIView):
+    queryset = CalenderModel.objects.all()
+    serializer_class = CalenderSerializer
+
+

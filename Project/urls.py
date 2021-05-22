@@ -17,10 +17,18 @@ from django.contrib import admin
 from django.urls import path
 
 from App import views
+from rest_framework.authtoken import views as tviews
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/',views.index,name='main'),
     path('loginCheck/',views.loginCheck,name='loginCheck'),
-    path('appointment/',views.UserAppointment.as_view())
+    path('appointment/',views.UserAppointment.as_view()),
+    path('updateappointment/',views.UpdateAppointment.as_view()),
+    path('viewappointment/',views.ViewAppointment.as_view()),
+]
+
+urlpatterns += [
+    path('token/', tviews.obtain_auth_token),
 ]
